@@ -7,4 +7,4 @@ assignees: ''
 
 ---
 
-As a **User/Admin"" I can **Blank** so I can **Blank**
+As a **User/Admin** I can **Blank** so I can **Blank**
