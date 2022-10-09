@@ -1,0 +1,17 @@
+.NavBar {
+    background-color: rgb(39, 39, 39);
+}
+
+.NavLink {
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+  }
+ 
+.NavLink:hover {
+    color: aqua;
+}  
+
+.Active i {
+    color: aqua;
+}

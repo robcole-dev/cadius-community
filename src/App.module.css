@@ -1,0 +1,33 @@
+.App {
+    font-family: "Turret Road", sans-serif;
+    background-color: black;
+    min-height: 100vh;
+}
+
+a {
+    color: white;
+    transition: color ease-in-out 0.3s;
+}
+
+a:hover {
+    color: aqua;
+    text-decoration: none;
+}
+
+a:hover i {
+    color: aqua;
+    transition: color ease-in-out 0.3s;
+}
+
+i {
+    color: white;
+    font-size: 1.6rem;
+    padding: 7px;
+    vertical-align: middle;
+}
+
+i:hover {
+    cursor: pointer;
+    transition: color ease-in-out 0.3s;
+    color: aqua;
+}
