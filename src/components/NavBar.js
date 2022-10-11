@@ -22,7 +22,8 @@ const NavBar = () => {
                     </Nav>
                     <Nav>
                         <NavLink onClick={() => setExpanded(false)} to="/profile" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-id-card"></i>Profile</NavLink>
-                        <NavLink onClick={() => setExpanded(false)} to="/signin" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-sign-in-alt"></i>Login / Signup</NavLink>
+                        <NavLink onClick={() => setExpanded(false)} to="/signin" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-sign-in-alt"></i>Sign In</NavLink>
+                        <NavLink onClick={() => setExpanded(false)} to="/signup" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-sign-in-alt"></i>Signup</NavLink>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
