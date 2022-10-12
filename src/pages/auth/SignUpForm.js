@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Link, useHistory } from 'react-router-dom';
 
-import styles from "../../css/SigninupForm.module.css"
+import styles from "../../css/SignInUpForm.module.css"
 import appStyles from "../../App.module.css";
 
 import { Form, Button, Col, Row, Container, Alert, Image } from "react-bootstrap";
