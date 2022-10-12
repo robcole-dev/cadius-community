@@ -1,12 +1,27 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import styles from '../css/NavBar.module.css';
 import { NavLink } from "react-router-dom";
 import logo from '../assets/logo.png';
+import { CurrentUserContext } from "../App";
 
 const NavBar = () => {
+    const currentUser = useContext(CurrentUserContext)
+
+    const loggedInIcons = 
+        <>
+            <NavLink onClick={() => setExpanded(false)} to="/profile" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-id-card"></i>{currentUser?.username}</NavLink>
+        </>
+
+    const loggedOutIcons = 
+        <> 
+            <NavLink onClick={() => setExpanded(false)} to="/signin" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-sign-in-alt"></i>Sign In</NavLink>
+            <NavLink onClick={() => setExpanded(false)} to="/signup" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-sign-in-alt"></i>Signup</NavLink>
+        </>
+
+
     const [expanded, setExpanded] = useState(false);
 
     return (
@@ -21,9 +36,7 @@ const NavBar = () => {
                         <NavLink onClick={() => setExpanded(false)} to="/tutorials" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-book"></i>Tutorials / Guides</NavLink>
                     </Nav>
                     <Nav>
-                        <NavLink onClick={() => setExpanded(false)} to="/profile" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-id-card"></i>Profile</NavLink>
-                        <NavLink onClick={() => setExpanded(false)} to="/signin" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-sign-in-alt"></i>Sign In</NavLink>
-                        <NavLink onClick={() => setExpanded(false)} to="/signup" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-sign-in-alt"></i>Signup</NavLink>
+                        {currentUser ? loggedInIcons : loggedOutIcons}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
