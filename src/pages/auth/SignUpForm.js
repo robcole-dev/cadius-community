@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import { Link, useHistory } from 'react-router-dom';
 
-import styles from "../../css/SigninupForm.modules.css";
+import styles from "../../css/SigninupForm.module.css"
 import appStyles from "../../App.module.css";
 
-import { Form, Button, Col, Row, Container, Alert } from "react-bootstrap";
+import { Form, Button, Col, Row, Container, Alert, Image } from "react-bootstrap";
 import axios from "axios";
+import image from "../../assets/signup.jpg";
 
 
 const SignUpForm = () => {
@@ -40,9 +41,8 @@ const SignUpForm = () => {
       return (
         <Row className={styles.Row}>
           <Col className="my-auto py-2 p-md-2" md={6}>
-            <Container className={`${appStyles.Content} p-4 `}>
-              <h1 className={styles.Header}>sign up</h1>
-    
+            <Container className={`p-4`}>
+              <h1 className={styles.Header}>Sign Up</h1>
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="username">
                   <Form.Label className="d-none">username</Form.Label>
@@ -109,6 +109,11 @@ const SignUpForm = () => {
               </Link>
             </Container>
           </Col>
+          <Col md={6} className={`my-auto d-none d-md-block p-2 ${styles.SignUpCol}`}>
+        <Image className={`${appStyles.FillerImage}`}
+          src={image}
+        />
+      </Col>
         </Row>
       );
     };
