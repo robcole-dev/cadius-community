@@ -1,7 +1,11 @@
 .App {
   font-family: "Turret Road", sans-serif;
-  background-color: rgb(56, 56, 56);
+  background-color: black;
   min-height: 100vh;
+}
+
+input[type="file"] {
+  display: none;
 }
 
 a {
@@ -47,21 +51,4 @@ figure {
   max-height: 40vh;
   max-width: 100%;
   object-fit: contain;
-}
-
-/* scrollbar */
-*::-webkit-scrollbar {
-  width: 5px;
-}
-
-*::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background: #555;
 }
