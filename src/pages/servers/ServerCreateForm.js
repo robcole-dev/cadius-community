@@ -12,7 +12,7 @@ import styles from "../../css/ServerAddEdit.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../css/Button.module.css";
 import Asset from "../../components/Asset";
-import { Image } from "react-bootstrap";
+import { Alert, Image } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 
@@ -22,11 +22,11 @@ function ServerCreateForm() {
 
     const [serverData, setServerData] = useState({
         game: "",
-        name: "",
-        address: "",
+        server_name: "",
+        server_address: "",
         banner: "",
     });
-    const { game, name, address, banner } = serverData;
+    const { game, server_name, server_address, banner } = serverData;
 
     const bannerInput = useRef(null);
     const history = useHistory();
@@ -53,8 +53,8 @@ function ServerCreateForm() {
         const formData = new FormData();
 
         formData.append('game', game)
-        formData.append('server_name', name)
-        formData.append('server_address', address)
+        formData.append('server_name', server_name)
+        formData.append('server_address', server_address)
         formData.append('banner', bannerInput.current.files[0])
 
         try {
@@ -73,17 +73,28 @@ function ServerCreateForm() {
             <Form.Group>
                 <Form.Label>Game</Form.Label>
                 <Form.Control as="select" name="game" value={game} onChange={handleChange}>
-                    <option>Pick</option>
+                    <option>Pick a Game from the list</option>
+                    <option value="se">Space Engineers</option>
+                    <option value="mc">Minecraft</option>
                 </Form.Control>
             </Form.Group>
+            {errors.game?.map((message, idx) =>(
+                <Alert key={idx} variant="warning">{message}</Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Server Name</Form.Label>
-                <Form.Control type="text" name="name" value={name} onChange={handleChange} />
+                <Form.Control type="text" name="server_name" value={server_name} onChange={handleChange} />
             </Form.Group>
+            {errors.name?.map((message, idx) =>(
+                <Alert key={idx} variant="warning">{message}</Alert>
+            ))}
             <Form.Group>
                 <Form.Label>Server Address</Form.Label>
-                <Form.Control type="text" name="address" value={address} onChange={handleChange} />
+                <Form.Control type="text" name="server_address" value={server_address} onChange={handleChange} />
             </Form.Group>
+            {errors.address?.map((message, idx) =>(
+                <Alert key={idx} variant="warning">{message}</Alert>
+            ))}
 
             <Button className={btnStyles.Button} onClick={() => history.goBack()}>cancel</Button>
             <Button className={btnStyles.Button} type="submit">create</Button>
