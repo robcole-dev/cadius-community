@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -13,22 +13,28 @@ import appStyles from "../../App.module.css";
 import btnStyles from "../../css/Button.module.css";
 import Asset from "../../components/Asset";
 import { Image } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import { axiosReq } from "../../api/axiosDefaults";
 
 function ServerCreateForm() {
 
     const [errors, setErrors] = useState({});
 
     const [serverData, setServerData] = useState({
+        game: "",
         name: "",
         address: "",
         banner: "",
     });
-    const { name, address, banner } = serverData;
+    const { game, name, address, banner } = serverData;
+
+    const bannerInput = useRef(null);
+    const history = useHistory();
 
     const handleChange = (event) => {
         setServerData({
             ...serverData,
-            [event.target.name]: event.taget.value,
+            [event.target.name]: event.target.value,
         });
     };
 
@@ -42,8 +48,34 @@ function ServerCreateForm() {
         };
     };
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+
+        formData.append('game', game)
+        formData.append('server_name', name)
+        formData.append('server_address', address)
+        formData.append('banner', bannerInput.current.files[0])
+
+        try {
+            const {data} = await axiosReq.post('/servers/', formData);
+            history.push(`/servers/${data.id}`);
+        } catch(err){
+            console.log(err)
+            if (err.response?.status !== 401){
+                setErrors(err.response?.data)
+            }
+        }
+    };
+
     const textFields = (
         <div className="text-center">
+            <Form.Group>
+                <Form.Label>Game</Form.Label>
+                <Form.Control as="select" name="game" value={game} onChange={handleChange}>
+                    <option>Pick</option>
+                </Form.Control>
+            </Form.Group>
             <Form.Group>
                 <Form.Label>Server Name</Form.Label>
                 <Form.Control type="text" name="name" value={name} onChange={handleChange} />
@@ -53,13 +85,13 @@ function ServerCreateForm() {
                 <Form.Control type="text" name="address" value={address} onChange={handleChange} />
             </Form.Group>
 
-            <Button onClick={() => { }}>cancel</Button>
-            <Button type="submit">create</Button>
+            <Button className={btnStyles.Button} onClick={() => history.goBack()}>cancel</Button>
+            <Button className={btnStyles.Button} type="submit">create</Button>
         </div>
     );
 
     return (
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <Row>
                 <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
                     <Container
@@ -81,7 +113,7 @@ function ServerCreateForm() {
                                 </Form.Label>
                             )};
 
-                            <Form.File id="banner-upload" accept="image/*" onChange={handleChangeBanner} />
+                            <Form.File id="banner-upload" accept="image/*" onChange={handleChangeBanner} ref={bannerInput} />
                         </Form.Group>
                         <div className="d-md-none">{textFields}</div>
                     </Container>
