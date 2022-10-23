@@ -17,7 +17,6 @@ function ServerPage() {
                     axiosReq.get(`/servers/${id}`),
                 ])
                 setServer({results: [server]});
-                console.log(server)
             } catch(err){
                 console.log(err)
             }

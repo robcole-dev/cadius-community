@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -13,10 +13,10 @@ import appStyles from "../../App.module.css";
 import btnStyles from "../../css/Button.module.css";
 import Asset from "../../components/Asset";
 import { Alert, Image } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 
-function ServerCreateForm() {
+function ServerEditPage() {
 
     const [errors, setErrors] = useState({});
 
@@ -30,6 +30,22 @@ function ServerCreateForm() {
 
     const bannerInput = useRef(null);
     const history = useHistory();
+    const {id} = useParams();
+
+    useEffect(() => {
+        const handleMount = async () => {
+            try {
+                const {data} = await axiosReq.get(`/servers/${id}/`)
+                const {server_name, server_address, game, banner, is_owner} = data;
+
+                is_owner ? setServerData({server_name, server_address, game, banner}) : history.push('/')
+            } catch(err) {
+                console.log(err)
+            }
+        };
+
+        handleMount()
+    }, [history, id]);
 
     const handleChange = (event) => {
         setServerData({
@@ -55,14 +71,18 @@ function ServerCreateForm() {
         formData.append('game', game)
         formData.append('server_name', server_name)
         formData.append('server_address', server_address)
-        formData.append('banner', bannerInput.current.files[0])
+
+        if(bannerInput?.current?.files[0]){
+            formData.append('banner', bannerInput.current.files[0]);
+        }
+        
 
         try {
-            const { data } = await axiosReq.post('/servers/', formData);
-            history.push(`/servers/${data.id}`);
-        } catch (err) {
+            await axiosReq.put(`/servers/${id}`, formData);
+            history.push(`/servers/${id}`);
+        } catch(err){
             console.log(err)
-            if (err.response?.status !== 401) {
+            if (err.response?.status !== 401){
                 setErrors(err.response?.data)
             }
         }
@@ -78,26 +98,26 @@ function ServerCreateForm() {
                     <option value="mc">Minecraft</option>
                 </Form.Control>
             </Form.Group>
-            {errors.game?.map((message, idx) => (
+            {errors.game?.map((message, idx) =>(
                 <Alert key={idx} variant="warning">{message}</Alert>
             ))}
             <Form.Group>
                 <Form.Label>Server Name</Form.Label>
                 <Form.Control type="text" name="server_name" value={server_name} onChange={handleChange} />
             </Form.Group>
-            {errors.name?.map((message, idx) => (
+            {errors.name?.map((message, idx) =>(
                 <Alert key={idx} variant="warning">{message}</Alert>
             ))}
             <Form.Group>
                 <Form.Label>Server Address</Form.Label>
                 <Form.Control type="text" name="server_address" value={server_address} onChange={handleChange} />
             </Form.Group>
-            {errors.address?.map((message, idx) => (
+            {errors.address?.map((message, idx) =>(
                 <Alert key={idx} variant="warning">{message}</Alert>
             ))}
 
             <Button className={btnStyles.Button} onClick={() => history.goBack()}>cancel</Button>
-            <Button className={btnStyles.Button} type="submit">create</Button>
+            <Button className={btnStyles.Button} type="submit">save</Button>
         </div>
     );
 
@@ -126,9 +146,7 @@ function ServerCreateForm() {
 
                             <Form.File id="banner-upload" accept="image/*" onChange={handleChangeBanner} ref={bannerInput} />
                         </Form.Group>
-                        {errors?.banner?.map((message, idx) => (
-                            <Alert variant="warning" key={idx}>{message}</Alert>
-                        ))}
+                        <div className="d-md-none">{textFields}</div>
                     </Container>
                 </Col>
                 <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
@@ -139,4 +157,4 @@ function ServerCreateForm() {
     );
 }
 
-export default ServerCreateForm;
+export default ServerEditPage;
