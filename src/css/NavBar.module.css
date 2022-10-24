@@ -6,11 +6,18 @@
     color: white;
     padding: 5px;
     text-decoration: none;
-  }
- 
+}
+
+.NavDown {
+    background-color: rgb(39, 39, 39);
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+}
+
 .NavLink:hover {
     color: aqua;
-}  
+}
 
 .Active i {
     color: aqua;

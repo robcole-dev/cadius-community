@@ -2,6 +2,7 @@ import React from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { Dropdown, NavDropdown, NavItem } from "react-bootstrap";
 import styles from '../css/NavBar.module.css';
 import { NavLink } from "react-router-dom";
 import logo from '../assets/logo.png';
@@ -13,7 +14,7 @@ const NavBar = () => {
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
 
-    const {expanded, setExpanded, ref} = useClickOutsideToggle();
+    const { expanded, setExpanded, ref } = useClickOutsideToggle();
 
     const handleSignOut = async () => {
         try {
@@ -26,7 +27,15 @@ const NavBar = () => {
 
     const addServerIcon = (
         <>
-        <NavLink to={'/servers/create'} className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-plus-square"></i>Add Server</NavLink>
+            <NavDropdown title="Create" id="nav-dropdown" className={styles.NavLink}>
+                <NavDropdown.Item>
+                    <NavLink to={'/servers/create'} activeClassName={styles.Active}><i className="fas fa-plus-square"></i>Add Server</NavLink>
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item>
+                    <NavLink to={'/tutorials/create'} activeClassName={styles.Active}><i className="fas fa-plus-square"></i>Add Tutorial</NavLink>
+                </NavDropdown.Item>
+            </NavDropdown>
         </>
     )
 

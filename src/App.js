@@ -9,6 +9,7 @@ import ServerCreateForm from './pages/servers/ServerCreateForm';
 import ServerPage from './pages/servers/ServerPage';
 import ServersPage from './pages/servers/ServersPage';
 import ServerEditPage from './pages/servers/ServerEditPage';
+import ScreenshotCreateForm from './pages/screenshots/ScreenshotsCreateForm';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route exact path='/servers/create' render={() => <ServerCreateForm />} />
           <Route exact path='/servers/:id' render={() => <ServerPage />} />
           <Route exact path='/servers/:id/edit' render={() => <ServerEditPage />} />
+          <Route exact path='/screenshots/create' render={() => <ScreenshotCreateForm />} />
           <Route render={() => <p>Page not found!</p>} />
         </Switch>
       </Container>
