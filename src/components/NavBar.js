@@ -2,13 +2,14 @@ import React from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Dropdown, NavDropdown, NavItem } from "react-bootstrap";
+import Dropdown from 'react-bootstrap/Dropdown'
 import styles from '../css/NavBar.module.css';
 import { NavLink } from "react-router-dom";
 import logo from '../assets/logo.png';
 import { useCurrentUser, useSetCurrentUser } from "../contexts/CurrentUserContext";
 import axios from "axios";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
+import { NavItem } from "react-bootstrap";
 
 const NavBar = () => {
     const currentUser = useCurrentUser();
@@ -25,19 +26,11 @@ const NavBar = () => {
         }
     };
 
-    const addServerIcon = (
+    const createIcons = 
         <>
-            <NavDropdown title="Create" id="nav-dropdown" className={styles.NavLink}>
-                <NavDropdown.Item>
-                    <NavLink to={'/servers/create'} activeClassName={styles.Active}><i className="fas fa-plus-square"></i>Add Server</NavLink>
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item>
-                    <NavLink to={'/tutorials/create'} activeClassName={styles.Active}><i className="fas fa-plus-square"></i>Add Tutorial</NavLink>
-                </NavDropdown.Item>
-            </NavDropdown>
+            <NavLink to={'/screenshots/create'} className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-plus-square"></i>Add Screenshot</NavLink>
+            <NavLink to={'/servers/create'} className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-plus-square"></i>Add Server</NavLink>
         </>
-    )
 
     const loggedInIcons =
         <>
@@ -60,10 +53,10 @@ const NavBar = () => {
                     <Nav className="mr-auto">
                         <NavLink exact to="/" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-home"></i>Home</NavLink>
                         <NavLink exact to="/servers" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-headset"></i>Servers</NavLink>
-                        <NavLink to="/tutorials" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-book"></i>Tutorials / Guides</NavLink>
+                        <NavLink to="/screenshots" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-book"></i>Screenshots</NavLink>
                     </Nav>
                     <Nav>
-                        {currentUser && addServerIcon}
+                        {currentUser && createIcons}
                         {currentUser ? loggedInIcons : loggedOutIcons}
                     </Nav>
                 </Navbar.Collapse>
