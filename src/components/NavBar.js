@@ -2,14 +2,12 @@ import React from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Dropdown from 'react-bootstrap/Dropdown'
 import styles from '../css/NavBar.module.css';
 import { NavLink } from "react-router-dom";
 import logo from '../assets/logo.png';
 import { useCurrentUser, useSetCurrentUser } from "../contexts/CurrentUserContext";
 import axios from "axios";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
-import { NavItem } from "react-bootstrap";
 
 const NavBar = () => {
     const currentUser = useCurrentUser();
@@ -53,7 +51,7 @@ const NavBar = () => {
                     <Nav className="mr-auto">
                         <NavLink exact to="/" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-home"></i>Home</NavLink>
                         <NavLink exact to="/servers" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-headset"></i>Servers</NavLink>
-                        <NavLink to="/screenshots" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-book"></i>Screenshots</NavLink>
+                        <NavLink exact to="/screenshots" className={styles.NavLink} activeClassName={styles.Active}><i className="fas fa-book"></i>Screenshots</NavLink>
                     </Nav>
                     <Nav>
                         {currentUser && createIcons}
