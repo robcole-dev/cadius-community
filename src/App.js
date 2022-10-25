@@ -29,8 +29,8 @@ function App() {
           <Route exact path='/servers/create' render={() => <ServerCreateForm />} />
           <Route exact path='/servers/:id' render={() => <ServerPage />} />
           <Route exact path='/servers/:id/edit' render={() => <ServerEditPage />} />
-          <Route exact path='/screenshots/:id' render={() => <ScreenshotPage />} />
           <Route exact path='/screenshots/create' render={() => <ScreenshotCreateForm />} />
+          <Route exact path='/screenshots/:id' render={() => <ScreenshotPage />} />
           <Route exact path='/screenshots/:id/edit' render={() => <ScreenshotEditForm />} />
           <Route render={() => <p>Page not found!</p>} />
         </Switch>

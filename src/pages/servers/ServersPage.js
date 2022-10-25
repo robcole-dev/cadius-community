@@ -36,8 +36,8 @@ function ServersPage() {
             {hasLoaded ? (
                 <>
                     {servers.results.length ? (
-                        servers.results[0].map((server) => (
-                                <Row className={`h-100 border border-warning ${styles.Server}`}>
+                        servers.results[0].map((server, idx) => (
+                                <Row key={idx} className={`h-100 border border-warning ${styles.Server}`}>
                                     <Col className={`${styles.Col}`} ><Link to={`/servers/${server.id}`}><img src={server.banner} alt={server.server_name} /></Link></Col>
                                     {server.game === 'se' && <Col className={`${styles.Col}`}>Space Engineers</Col>}
                                     {server.game === 'mc' && <Col className={`${styles.Col}`}>Minecraft</Col>}

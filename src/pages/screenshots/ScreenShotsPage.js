@@ -29,13 +29,16 @@ function ScreenshotsPage() {
         fetchScreenshots();
     }, [pathname]);
 
+    console.log(screenshots)
+    console.log(hasLoaded)
+
     return (
         <Container>
             {hasLoaded ? (
                 <>
                     {screenshots.results.length ? (
-                        screenshots.results[0].map((screenshot) => (
-                                <Row className={`h-100 border border-warning ${styles.Server}`}>
+                        screenshots.results.map((screenshot, idx) => (
+                                <Row key={idx} className={`h-100 border border-warning ${styles.Server}`}>
                                     <Col className={`${styles.Col}`} ><Link to={`/screenshots/${screenshot.id}`}><img src={screenshot.image} alt={screenshot.title} /></Link></Col>
                                     <Col className={`${styles.Col}`}>{screenshot.title}</Col>
                                     <Col className={`${styles.Col}`}>{screenshot.description}</Col>
