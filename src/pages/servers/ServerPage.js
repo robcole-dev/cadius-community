@@ -15,10 +15,10 @@ function ServerPage() {
             try {
                 const [{data: server}] = await Promise.all([
                     axiosReq.get(`/servers/${id}`),
-                ])
+                ]);
                 setServer({results: [server]});
             } catch(err){
-                console.log(err)
+                console.log(err);
             }
         };
         handleMount();

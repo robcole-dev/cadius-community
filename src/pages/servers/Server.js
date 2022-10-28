@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 import React from "react";
 import { Card, Container } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
@@ -23,7 +24,7 @@ const Server = (props) => {
     } = props;
 
     const currentUser = useCurrentUser();
-    const is_author = currentUser?.username === author
+    const is_author = currentUser?.username === author;
     const history = useHistory();
 
     const handleDelete = async () => {
@@ -31,21 +32,21 @@ const Server = (props) => {
             await axiosRes.delete(`/servers/${id}`);
             history.goBack();
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     };
 
     const handleEdit = () => {
-        history.push(`/servers/${id}/edit`)
-    }
+        history.push(`/servers/${id}/edit`);
+    };
 
-    let gameTitle
+    let gameTitle;
     if (game === 'se') {
-        gameTitle = "Space Engineers"
+        gameTitle = "Space Engineers";
     } else if (game === 'mc') {
-        gameTitle = "Minecraft"
+        gameTitle = "Minecraft";
     } else {
-        gameTitle = ""
+        gameTitle = "";
     }
 
     return (

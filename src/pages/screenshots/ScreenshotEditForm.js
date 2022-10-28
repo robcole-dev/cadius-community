@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 import React, { useEffect, useRef, useState } from "react";
 
 import Form from "react-bootstrap/Form";
@@ -6,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 
-import Upload from "../../assets/upload.png"
+import Upload from "../../assets/upload.png";
 
 import styles from "../../css/ServerAddEdit.module.css";
 import appStyles from "../../App.module.css";
@@ -34,15 +35,15 @@ function ScreenshotEditForm() {
     useEffect(() => {
         const handleMount = async () => {
             try {
-                const {data} = await axiosReq.get(`/screenshots/${id}`)
+                const {data} = await axiosReq.get(`/screenshots/${id}`);
                 const {title, description, image, is_owner} = data;
 
-                is_owner ? setScreenshotData({title, description, image}) : history.push('/')
+                is_owner ? setScreenshotData({title, description, image}) : history.push('/');
             } catch(err) {
-                console.log(err)
+                console.log(err);
             }
         };
-        handleMount()
+        handleMount();
     }, [history, id]);
 
     const handleChange = (event) => {
@@ -54,21 +55,21 @@ function ScreenshotEditForm() {
 
     const handleChangeImage = (event) => {
         if (event.target.files.length) {
-            URL.revokeObjectURL(image)
+            URL.revokeObjectURL(image);
             setScreenshotData({
                 ...screenshotData,
                 image: URL.createObjectURL(event.target.files[0]),
             });
-        };
+        }
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
 
-        formData.append('title', title)
-        formData.append('description', description)
-        formData.append('image', imageInput.current.files[0])
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('image', imageInput.current.files[0]);
 
         if(imageInput?.current?.files[0]){
             formData.append('image', imageInput.current.files[0]);
@@ -78,9 +79,9 @@ function ScreenshotEditForm() {
             await axiosReq.put(`/screenshots/${id}`, formData);
             history.push(`/screenshots/${id}`);
         } catch (err) {
-            console.log(err)
+            console.log(err);
             if (err.response?.status !== 401) {
-                setErrors(err.response?.data)
+                setErrors(err.response?.data);
             }
         }
     };

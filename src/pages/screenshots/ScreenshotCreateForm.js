@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 
-import Upload from "../../assets/upload.png"
+import Upload from "../../assets/upload.png";
 
 import styles from "../../css/ServerAddEdit.module.css";
 import appStyles from "../../App.module.css";
@@ -39,29 +39,29 @@ function ScreenshotCreateForm() {
 
     const handleChangeImage = (event) => {
         if (event.target.files.length) {
-            URL.revokeObjectURL(image)
+            URL.revokeObjectURL(image);
             setScreenshotData({
                 ...screenshotData,
                 image: URL.createObjectURL(event.target.files[0]),
             });
-        };
+        }
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
 
-        formData.append('title', title)
-        formData.append('description', description)
-        formData.append('image', imageInput.current.files[0])
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('image', imageInput.current.files[0]);
 
         try {
             const { data } = await axiosReq.post('/screenshots/', formData);
             history.push(`/screenshots/${data.id}`);
         } catch (err) {
-            console.log(err)
+            console.log(err);
             if (err.response?.status !== 401) {
-                setErrors(err.response?.data)
+                setErrors(err.response?.data);
             }
         }
     };

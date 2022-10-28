@@ -18,7 +18,7 @@ const Comment = (props) => {
 
   const handleDelete = async () => {
     try {
-      await axiosRes.delete(`/comments/${id}`)
+      await axiosRes.delete(`/comments/${id}`);
       setComments(prevComments => ({
         ...prevComments,
         results: prevComments.results.filter(comment => comment.id !== id),

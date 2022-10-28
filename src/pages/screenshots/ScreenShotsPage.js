@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 import React, { useEffect, useState } from "react";
 
 import Container from "react-bootstrap/Container";
@@ -21,13 +22,13 @@ function ScreenshotsPage() {
     useEffect(() => {
         const fetchScreenshots = async () => {
             try {
-                const { data } = await axiosReq.get(`/screenshots/`)
+                const { data } = await axiosReq.get(`/screenshots/`);
                 setScreenshots(data);
                 setHasLoaded(true);
             } catch (err) {
                 console.log(err);
             }
-        }
+        };
         setHasLoaded(false);
         const timer = setTimeout(() => {
             fetchScreenshots();

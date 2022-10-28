@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 import React, { useRef, useState } from "react";
 
 import Form from "react-bootstrap/Form";
@@ -6,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 
-import Upload from "../../assets/upload.png"
+import Upload from "../../assets/upload.png";
 
 import styles from "../../css/ServerAddEdit.module.css";
 import appStyles from "../../App.module.css";
@@ -40,30 +41,30 @@ function ServerCreateForm() {
 
     const handleChangeBanner = (event) => {
         if (event.target.files.length) {
-            URL.revokeObjectURL(banner)
+            URL.revokeObjectURL(banner);
             setServerData({
                 ...serverData,
                 banner: URL.createObjectURL(event.target.files[0]),
             });
-        };
+        }
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
 
-        formData.append('game', game)
-        formData.append('server_name', server_name)
-        formData.append('server_address', server_address)
-        formData.append('banner', bannerInput.current.files[0])
+        formData.append('game', game);
+        formData.append('server_name', server_name);
+        formData.append('server_address', server_address);
+        formData.append('banner', bannerInput.current.files[0]);
 
         try {
             const { data } = await axiosReq.post('/servers/', formData);
             history.push(`/servers/${data.id}`);
         } catch (err) {
-            console.log(err)
+            console.log(err);
             if (err.response?.status !== 401) {
-                setErrors(err.response?.data)
+                setErrors(err.response?.data);
             }
         }
     };

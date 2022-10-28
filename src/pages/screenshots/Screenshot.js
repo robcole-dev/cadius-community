@@ -22,7 +22,7 @@ const Screenshot = (props) => {
     } = props;
 
     const currentUser = useCurrentUser();
-    const is_author = currentUser?.username === author
+    const is_author = currentUser?.username === author;
     const history = useHistory();
 
     const handleDelete = async () => {
@@ -30,14 +30,14 @@ const Screenshot = (props) => {
             await axiosRes.delete(`/screenshots/${id}`);
             history.goBack();
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     };
 
     const handleEdit = () => {
-        history.push(`/screenshots/${id}/edit`)
-    }
-
+        history.push(`/screenshots/${id}/edit`);
+    };
+    
     return (
         <Card className={styles.Screenshot} border="warning">
             <Link to={`/screenshots/${id}`}>

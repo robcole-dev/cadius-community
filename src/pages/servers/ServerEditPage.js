@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 import React, { useEffect, useRef, useState } from "react";
 
 import Form from "react-bootstrap/Form";
@@ -6,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 
-import Upload from "../../assets/upload.png"
+import Upload from "../../assets/upload.png";
 
 import styles from "../../css/ServerAddEdit.module.css";
 import appStyles from "../../App.module.css";
@@ -35,15 +36,15 @@ function ServerEditPage() {
     useEffect(() => {
         const handleMount = async () => {
             try {
-                const {data} = await axiosReq.get(`/servers/${id}/`)
+                const {data} = await axiosReq.get(`/servers/${id}/`);
                 const {server_name, server_address, game, banner, is_owner} = data;
 
-                is_owner ? setServerData({server_name, server_address, game, banner}) : history.push('/')
+                is_owner ? setServerData({server_name, server_address, game, banner}) : history.push('/');
             } catch(err) {
-                console.log(err)
+                console.log(err);
             }
         };
-        handleMount()
+        handleMount();
     }, [history, id]);
 
     const handleChange = (event) => {
@@ -55,21 +56,21 @@ function ServerEditPage() {
 
     const handleChangeBanner = (event) => {
         if (event.target.files.length) {
-            URL.revokeObjectURL(banner)
+            URL.revokeObjectURL(banner);
             setServerData({
                 ...serverData,
                 banner: URL.createObjectURL(event.target.files[0]),
             });
-        };
+        }
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
 
-        formData.append('game', game)
-        formData.append('server_name', server_name)
-        formData.append('server_address', server_address)
+        formData.append('game', game);
+        formData.append('server_name', server_name);
+        formData.append('server_address', server_address);
 
         if(bannerInput?.current?.files[0]){
             formData.append('banner', bannerInput.current.files[0]);
@@ -80,9 +81,9 @@ function ServerEditPage() {
             await axiosReq.put(`/servers/${id}`, formData);
             history.push(`/servers/${id}`);
         } catch(err){
-            console.log(err)
+            console.log(err);
             if (err.response?.status !== 401){
-                setErrors(err.response?.data)
+                setErrors(err.response?.data);
             }
         }
     };

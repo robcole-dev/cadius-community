@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 
@@ -32,12 +33,12 @@ function ScreenshotPage() {
                     axiosReq.get(`/screenshots/${id}`),
                     axiosReq.get(`/comments/?screenshot=${id}`),
                     axiosReq.get(`/emojis/?screenshot=${id}`)
-                ])
+                ]);
                 setScreenshot({ results: [screenshot] });
                 setComments(comments);
                 setEmojis(emojis);
             } catch (err) {
-                console.log(err)
+                console.log(err);
             }
         };
         handleMount();

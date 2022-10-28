@@ -23,8 +23,7 @@ function CommentEditForm(props) {
       setComments((prevComments) => ({
         ...prevComments,
         results: prevComments.results.map((comment) => {
-          return comment.id === id
-            ? {
+          return comment.id === id ? {
                 ...comment,
                 description: formDescription.trim(),
                 last_modified: "now",
