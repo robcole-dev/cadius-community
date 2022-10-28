@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 
+import Container from "react-bootstrap/Container";
+import Asset from "../../components/Asset";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
-import Asset from "../../components/Asset"
 
 import appStyles from "../../App.module.css";
 import styles from "../../css/ServersPage.module.css";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
+import Screenshot from "./Screenshot";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { fetchMoreData } from "../../utils/utils";
 
 function ScreenshotsPage() {
     const [screenshots, setScreenshots] = useState({ results: [] });
@@ -19,42 +22,49 @@ function ScreenshotsPage() {
         const fetchScreenshots = async () => {
             try {
                 const { data } = await axiosReq.get(`/screenshots/`)
-                setScreenshots({ results: [data] })
-                setHasLoaded(true)
+                setScreenshots(data);
+                setHasLoaded(true);
             } catch (err) {
-                console.log(err)
+                console.log(err);
             }
         }
         setHasLoaded(false);
-        fetchScreenshots();
+        const timer = setTimeout(() => {
+            fetchScreenshots();
+        }, 1000);
+
+        return () => {
+            clearTimeout(timer);
+        };
+
     }, [pathname]);
 
-    console.log(screenshots)
-    console.log(hasLoaded)
-
     return (
-        <Container>
-            {hasLoaded ? (
-                <>
-                    {screenshots.results.length ? (
-                        screenshots.results.map((screenshot, idx) => (
-                                <Row key={idx} className={`h-100 border border-warning ${styles.Server}`}>
-                                    <Col className={`${styles.Col}`} ><Link to={`/screenshots/${screenshot.id}`}><img src={screenshot.image} alt={screenshot.title} /></Link></Col>
-                                    <Col className={`${styles.Col}`}>{screenshot.title}</Col>
-                                    <Col className={`${styles.Col}`}>{screenshot.description}</Col>
-                                </Row>
-                        ))
-                    ) : (
-                        console.log('Show no results asset')
-                    )}
-                </>
-            ) : (
-                <Container className={appStyles.Content}>
-                    <Asset spinner />
-                </Container>
-            )}
-
-        </Container>
+        <Row className="h-100">
+            <Col className="py-2 p-0 p-lg-2" lg={8}>
+                {hasLoaded ? (
+                    <>
+                        {screenshots.results.length ? (
+                            <InfiniteScroll
+                                children={screenshots.results.map((screenshot) => (
+                                    <Screenshot key={screenshot.id} {...screenshot} setScreenshots={setScreenshots} />
+                                ))}
+                                dataLength={screenshots.results.length}
+                                loader={<Asset spinner />}
+                                hasMore={!!screenshots.next}
+                                next={() => fetchMoreData(screenshots, setScreenshots)}
+                            />
+                        ) : (
+                            console.log('Show no results asset')
+                        )}
+                    </>
+                ) : (
+                    <Container className={appStyles.Content}>
+                        <Asset spinner />
+                    </Container>
+                )}
+            </Col>
+        </Row>
     );
 }
 
