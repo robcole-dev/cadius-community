@@ -1,0 +1,14 @@
+.Owner {
+  font-weight: bold;
+  color: #dd8219;
+  margin-right: 8px;
+}
+
+.Date {
+  font-weight: lighter;
+  color: #c1c1c5;
+}
+
+.Description {
+  color: white;
+}
