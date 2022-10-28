@@ -12,46 +12,43 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import CommentCreateForm from "../comments/CommentCreateForm";
 import Comment from "../comments/Comment";
 import Asset from "../../components/Asset";
-import EmojiPicker from "emoji-picker-react";
 import { fetchMoreData } from "../../utils/utils";
+import EmojiCreateForm from "../emojis/EmojiCreateForm";
 
 
 function ScreenshotPage() {
     const { id } = useParams();
     const [screenshot, setScreenshot] = useState({ results: [] });
     const [comments, setComments] = useState({ results: [] });
+    const [emojis, setEmojis] = useState({ results: []});
     const currentUser = useCurrentUser();
     const profile_image = currentUser?.profile_image;
-    const [selectedEmoji, setSelectedEmoji] = useState();
 
-    const handleEmoji = (emojiData) => {
-        setSelectedEmoji(emojiData.unified)
-
-        console.log(selectedEmoji)
-    }
 
     useEffect(() => {
         const handleMount = async () => {
             try {
-                const [{ data: screenshot }, { data: comments }] = await Promise.all([
+                const [{ data: screenshot }, { data: comments }, {data: emojis}] = await Promise.all([
                     axiosReq.get(`/screenshots/${id}`),
-                    axiosReq.get(`/comments/?screenshot=${id}`)
+                    axiosReq.get(`/comments/?screenshot=${id}`),
+                    axiosReq.get(`/emojis/?screenshot=${id}`)
                 ])
                 setScreenshot({ results: [screenshot] });
                 setComments(comments);
+                setEmojis(emojis);
             } catch (err) {
                 console.log(err)
             }
         };
         handleMount();
     }, [id]);
-
     return (
         <Row className="h-100">
             <Col className="py-2 p-0 p-lg-2" lg={8}>
                 <Screenshot {...screenshot.results[0]} setScreenshot={setScreenshot} screenshotPage />
                 <Container border="warning" className={appStyles.Content}>
                     {currentUser ? (
+                        <>
                         <CommentCreateForm
                             profile_id={currentUser.profile_id}
                             profileImage={profile_image}
@@ -59,6 +56,9 @@ function ScreenshotPage() {
                             setScreenshot={setScreenshot}
                             setComments={setComments}
                         />
+                        
+                        <EmojiCreateForm screenshot={id} setScreenshot={setScreenshot} setEmojis={setEmojis} />
+                        </>
                     ) : comments.results.length ? (
                         "Comments"
                     ) : null}
