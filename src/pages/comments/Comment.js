@@ -11,7 +11,7 @@ import CommentEditForm from "./CommentEditForm";
 
 const Comment = (props) => {
   const { author_id, author_image, author, last_modified, description,
-    id, setScreenshot, setComments } = props;
+    id, setComments } = props;
   const [showEditForm, setShowEditForm] = useState(false);
   const currentUser = useCurrentUser();
   const is_author = currentUser?.username === author;

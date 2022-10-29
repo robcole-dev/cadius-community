@@ -9,7 +9,7 @@ import ProfileImage from "../../components/ProfileImage";
 import { axiosRes } from "../../api/axiosDefaults";
 
 function CommentCreateForm(props) {
-  const { screenshot, setScreenshot, setComments, profileImage, profile_id } = props;
+  const { screenshot, setComments, profileImage, profile_id } = props;
   const [description, setDescription] = useState("");
 
   const handleChange = (event) => {

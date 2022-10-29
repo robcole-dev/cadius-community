@@ -7,7 +7,6 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 import appStyles from "../../App.module.css";
-import styles from "../../css/ServersPage.module.css";
 import { useLocation } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import Screenshot from "./Screenshot";

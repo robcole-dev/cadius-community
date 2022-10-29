@@ -14,14 +14,12 @@ import CommentCreateForm from "../comments/CommentCreateForm";
 import Comment from "../comments/Comment";
 import Asset from "../../components/Asset";
 import { fetchMoreData } from "../../utils/utils";
-import EmojiCreateForm from "../emojis/EmojiCreateForm";
 
 
 function ScreenshotPage() {
     const { id } = useParams();
     const [screenshot, setScreenshot] = useState({ results: [] });
     const [comments, setComments] = useState({ results: [] });
-    const [emojis, setEmojis] = useState({ results: []});
     const currentUser = useCurrentUser();
     const profile_image = currentUser?.profile_image;
 
@@ -29,14 +27,12 @@ function ScreenshotPage() {
     useEffect(() => {
         const handleMount = async () => {
             try {
-                const [{ data: screenshot }, { data: comments }, {data: emojis}] = await Promise.all([
+                const [{ data: screenshot }, { data: comments }] = await Promise.all([
                     axiosReq.get(`/screenshots/${id}`),
-                    axiosReq.get(`/comments/?screenshot=${id}`),
-                    axiosReq.get(`/emojis/?screenshot=${id}`)
+                    axiosReq.get(`/comments/?screenshot=${id}`)
                 ]);
                 setScreenshot({ results: [screenshot] });
                 setComments(comments);
-                setEmojis(emojis);
             } catch (err) {
                 console.log(err);
             }
@@ -56,9 +52,7 @@ function ScreenshotPage() {
                             screenshot={id}
                             setScreenshot={setScreenshot}
                             setComments={setComments}
-                        />
-                        
-                        <EmojiCreateForm screenshot={id} setScreenshot={setScreenshot} setEmojis={setEmojis} />
+                        />                       
                         </>
                     ) : comments.results.length ? (
                         "Comments"
