@@ -29,7 +29,7 @@ function SignInForm() {
     try {
       const {data} = await axios.post("/dj-rest-auth/login/", signInData);
       setCurrentUser(data.user);
-      
+      setTokenTimestamp(data);
       history.push("/");
     } catch (err) {
       setErrors(err.response?.data);
@@ -60,11 +60,11 @@ function SignInForm() {
                 onChange={handleChange}
               />
             </Form.Group>
-            {/* {errors.username?.map((message, idx) => (
+            {errors.username?.map((message, idx) => (
               <Alert key={idx} variant="warning">
                 {message}
               </Alert>
-            ))} */}
+            ))}
 
             <Form.Group controlId="password">
               <Form.Label className="d-none">Password</Form.Label>
