@@ -14,6 +14,7 @@ import ScreenshotEditForm from './pages/screenshots/ScreenshotEditForm';
 import ScreenshotPage from './pages/screenshots/ScreenshotPage';
 import ScreenshotsPage from './pages/screenshots/ScreenShotsPage';
 import PageNotFound from './components/PageNotFound';
+import PageBuild from './components/PageBuild';
 
 function App() {
   return (
@@ -24,7 +25,6 @@ function App() {
           <Route exact path='/' render={() => <h1>Home Page</h1>} />
           <Route exact path='/servers' render={() => <ServersPage />} />
           <Route exact path='/screenshots' render={() => <ScreenshotsPage />} />
-          <Route exact path='/profile' render={() => <h1>Profile</h1>} />
           <Route exact path='/signin' render={() => <SignInForm />} />
           <Route exact path='/signup' render={() => <SignUpForm />} />
           <Route exact path='/servers/create' render={() => <ServerCreateForm />} />
@@ -33,6 +33,7 @@ function App() {
           <Route exact path='/screenshots/create' render={() => <ScreenshotCreateForm />} />
           <Route exact path='/screenshots/:id' render={() => <ScreenshotPage />} />
           <Route exact path='/screenshots/:id/edit' render={() => <ScreenshotEditForm />} />
+          <Route exact path='/profiles/:id' render={() => <PageBuild />} />
           <Route render={() => <PageNotFound />} />
         </Switch>
       </Container>
