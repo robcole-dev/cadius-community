@@ -9,6 +9,7 @@ import styles from "../../css/SignInUpForm.module.css";
 import appStyles from "../../App.module.css";
 import image from "../../assets/signin.jpg";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { setTokenTimestamp } from "../../utils/utils";
 
 function SignInForm() {
   const setCurrentUser = useSetCurrentUser();
@@ -28,6 +29,7 @@ function SignInForm() {
     try {
       const {data} = await axios.post("/dj-rest-auth/login/", signInData);
       setCurrentUser(data.user);
+      setTokenTimestamp(data);
       history.push("/");
     } catch (err) {
       setErrors(err.response?.data);
