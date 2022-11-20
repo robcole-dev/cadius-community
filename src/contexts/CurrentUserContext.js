@@ -45,6 +45,7 @@ export const CurrentUserProvider = ({ children }) => {
                     }
                     return config;
                 }
+                return config;
             },
             (err) => {
                 return Promise.reject(err);
