@@ -6,7 +6,7 @@ The Cadius Community site is deisgn to allow users to advertise their game serve
 
 To visit the live version of the site (hosted by Heroku) click [here](http://cadius-community.herokuapp.com/)
 
-The site will be deisgn using the React system. This allows me to design a well structure architecture and allows for the reuse of components across the site. For example this site will use a component that checks for the current user logged in. This can then be reused anywhere on the site without having to duplicate code.
+The site will be design using the React system. This allows me to design a well structure architecture and allows for the reuse of components across the site. For example this site will use a component called "CurrentUserContext", this checks for the current user logged in. This can then be reused anywhere on the site without having to duplicate code.
 
 ## Project Board
 
@@ -124,22 +124,15 @@ For all testing, please refer to the [TESTING.md](TESTING.md) file.
 ## Deployment
 
 The site was deployed to Heroku. The steps to deploy are as follows: 
-- We need to install everything in the requirements.txt file. To do this we run the following command 
- 
-    ```pip3 install -r requirements.txt```
+- First you will need to copy this repository (steps below).
 - Login / signup to [Heroku](https://id.heroku.com/login)
 - On the dasboard, once logged in, click New and then click Create new app
 - Give the App a name and select your region, then click create app
-- Click resources and in the add-ons search for `Heroku Postgres`. Select the free version and click submit order form.
-- Login / signup tp [Cloudinary](https://cloudinary.com/)
-- On the dashboard, once logged in, click the API Environment Variable to copy it
-- Navigate back to Heroku and the app you created earlier
-- Click settings and then click Reveal config Vars. This is where we need to set a couple of things.
-- In the Key box enter `CLOUDINARY_URL` and in the value enter the API Environment Variable you copied earlier. Before clicking add, remove `CLOUDINARY_URL=` from the value field
-- In the Key box enter `PORT` and in the value enter `8000` then click add
-- In the Key box enter `SECRET_KEY` and in the value enter a random key then click add
 - Click deploy from the menu at the top, then click github.
 - enter the repositry name and click search. if found the repositry will appear below, click connect.
+- once the site is deployed click open app and copy the url from the address bar.
+- Navigate to the DRF deployed site and open the Config Vars.
+- creat a key called "CLIENT_ORIGIN" and paste the url you copied into the value, remove the last forward slash
 
 [Link to deployed site](http://cadius-community.herokuapp.com/)
 
@@ -152,8 +145,6 @@ if you would like to make a clone of this repository, you can type the following
 Alternatively, if using Git pod, you can click below to create your own workspace using this repository.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/robcole-dev/cadius-community)
-
-Please make sure to install the requirements using ```pip3 install -r requirements.txt``` in your terminal
 
 ## Credits 
 
