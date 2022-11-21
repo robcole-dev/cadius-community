@@ -124,7 +124,7 @@ For all testing, please refer to the [TESTING.md](TESTING.md) file.
 ## Deployment
 
 The site was deployed to Heroku. The steps to deploy are as follows: 
-- First you will need to copy this repository (steps below).
+
 - Login / signup to [Heroku](https://id.heroku.com/login)
 - On the dasboard, once logged in, click New and then click Create new app
 - Give the App a name and select your region, then click create app
