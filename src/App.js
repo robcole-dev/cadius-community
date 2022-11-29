@@ -15,6 +15,7 @@ import ScreenshotPage from './pages/screenshots/ScreenshotPage';
 import ScreenshotsPage from './pages/screenshots/ScreenShotsPage';
 import PageNotFound from './components/PageNotFound';
 import PageBuild from './components/PageBuild';
+import ProfilePage from './pages/profiles/ProfilePage';
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
           <Route exact path='/screenshots/create' render={() => <ScreenshotCreateForm />} />
           <Route exact path='/screenshots/:id' render={() => <ScreenshotPage />} />
           <Route exact path='/screenshots/:id/edit' render={() => <ScreenshotEditForm />} />
-          <Route exact path='/profiles/:id' render={() => <PageBuild />} />
+          <Route exact path='/profiles/:id' render={() => <ProfilePage />} />
           <Route render={() => <PageNotFound />} />
         </Switch>
       </Container>
