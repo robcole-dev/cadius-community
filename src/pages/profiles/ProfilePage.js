@@ -17,12 +17,14 @@ import { useParams } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useProfileData, useSetProfileData } from "../../contexts/ProfileDataContext";
 import { Button, Image } from "react-bootstrap";
-import Server from "./../servers/Server"
+import ServerProfile from "../servers/ServerProfile";
+import Screenshot from "../screenshots/Screenshot";
 
 
 function ProfilePage() {
     const [hasLoaded, setHasLoaded] = useState(false);
     const [profileServers, setProfileServers] = useState({ results: [] });
+    const [profileScreenshots, setProfileScreenshots] = useState({ results: []});
 
     const currentUser = useCurrentUser();
     const { id } = useParams();
@@ -38,16 +40,16 @@ function ProfilePage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [{ data: pageProfile }, { data: profileServers }] = await Promise.all([
+                const [{ data: pageProfile }, { data: profileServers }, { data: profileScreenshots }] = await Promise.all([
                     axiosReq.get(`/profiles/${id}/`),
                     axiosReq.get(`/servers/?author_id__profile=${id}`),
+                    axiosReq.get(`/screenshots/?author_id__profile=${id}`),
                 ]);
                 setProfileData((prevState) => ({
                     ...prevState,
                     pageProfile: { results: [pageProfile] },
                 }));
-                console.log(pageProfile)
-                console.log(profileServers)
+                setProfileScreenshots(profileScreenshots);
                 setProfileServers(profileServers);
                 setHasLoaded(true);
             } catch (err) {
@@ -89,12 +91,27 @@ function ProfilePage() {
                     {profileServers.results.length ? (
                         <InfiniteScroll
                             children={profileServers.results.map((server) => (
-                                <Server key={server.id} {...server} setServers={setProfileServers} />
+                                <ServerProfile key={server.id} {...server} setServers={setProfileServers} />
                             ))}
                             dataLength={profileServers.results.length}
                             loader={<Asset spinner />}
                             hasMore={!!profileServers.next}
                             next={() => fetchMoreData(profileServers, setProfileServers)}
+                        />
+                    ) : (
+                        <Asset message={`No results found, ${profile?.owner} hasn't posted yet.`} />
+                    )}
+                </Col>
+                <Col>
+                    {profileScreenshots.results.length ? (
+                        <InfiniteScroll
+                            children={profileScreenshots.results.map((screenshot) => (
+                                <Screenshot key={screenshot.id} {...screenshot} setScreenshots={setProfileScreenshots} />
+                            ))}
+                            dataLength={profileScreenshots.results.length}
+                            loader={<Asset spinner />}
+                            hasMore={!!profileScreenshots.next}
+                            next={() => fetchMoreData(profileScreenshots, setProfileScreenshots)}
                         />
                     ) : (
                         <Asset message={`No results found, ${profile?.owner} hasn't posted yet.`} />
