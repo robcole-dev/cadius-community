@@ -10,3 +10,12 @@
     text-align: center;
     color: white;
 }
+
+.ScreenshotHome {
+    background-color:rgba(255, 255, 255, 0.226);
+    border-radius: 2px;
+    margin-bottom: 16px;
+    text-align: center;
+    color: white;
+    width: 30vh;
+}

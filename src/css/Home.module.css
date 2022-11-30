@@ -1,0 +1,14 @@
+.title {
+    color: darkgoldenrod;
+    text-align: center;
+}
+
+.desc {
+    color: #aaaaaa;
+    text-align: center;
+}
+
+.hr {
+    background-color: aquamarine;
+    height: 1px;
+}
