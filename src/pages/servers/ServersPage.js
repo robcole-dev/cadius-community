@@ -11,6 +11,8 @@ import styles from "../../css/ServersPage.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import { Rating } from "react-simple-star-rating";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { fetchMoreData } from "../../utils/utils";
 
 function ServersPage() {
     const [servers, setServers] = useState({ results: [] });
@@ -21,14 +23,21 @@ function ServersPage() {
         const fetchServers = async () => {
             try {
                 const { data } = await axiosReq.get(`/servers/`);
-                setServers({ results: [data] });
+                setServers(data);
                 setHasLoaded(true);
             } catch (err) {
                 console.log(err);
             }
         };
         setHasLoaded(false);
-        fetchServers();
+        const timer = setTimeout(() => {
+            fetchServers();
+        }, 1000);
+
+        return () => {
+            clearTimeout(timer);
+        };
+        
     }, [pathname]);
 
     return (
@@ -37,7 +46,7 @@ function ServersPage() {
             {hasLoaded ? (
                 <>
                     {servers.results.length ? (
-                        servers.results[0].map((server, idx) => (
+                        servers.results.map((server, idx) => (
                                 <Row key={idx} className={`h-100 border border-warning ${styles.Server}`}>
                                     <Col className={`${styles.Col}`} ><Link to={`/servers/${server.id}`}><img src={server.banner} alt={server.server_name} /></Link></Col>
                                     {server.game === 'se' && <Col className={`${styles.Col}`}>Space Engineers</Col>}
