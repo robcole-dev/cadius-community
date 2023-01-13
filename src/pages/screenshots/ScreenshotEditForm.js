@@ -113,7 +113,7 @@ function ScreenshotEditForm() {
             <Row>
                 <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
                     <Container
-                        className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
+                        className={`${styles.Container} d-flex flex-column justify-content-center`}
                     >
                         <Form.Group className="text-center">
                             {image ? (
@@ -138,8 +138,8 @@ function ScreenshotEditForm() {
                         ))}
                     </Container>
                 </Col>
-                <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
-                    <Container className={appStyles.Content}>{textFields}</Container>
+                <Col md={5} lg={4} className="d-md-block p-0 p-md-2">
+                    <Container>{textFields}</Container>
                 </Col>
             </Row>
         </Form >
