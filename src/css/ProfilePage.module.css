@@ -5,7 +5,11 @@
     margin: 4px;
 }
 
-h3 {
+h2 {
+    color: darkgoldenrod;
+}
+
+p {
     color: darkgoldenrod;
 }
 

@@ -16,6 +16,9 @@ import ScreenshotsPage from './pages/screenshots/ScreenShotsPage';
 import PageNotFound from './components/PageNotFound';
 import ProfilePage from './pages/profiles/ProfilePage';
 import Home from './pages/home/home';
+import ProfileEditForm from './pages/profiles/ProfileEditPage';
+import UsernameForm from "./pages/profiles/UsernameForm";
+import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 
 function App() {
   return (
@@ -35,6 +38,9 @@ function App() {
           <Route exact path='/screenshots/:id' render={() => <ScreenshotPage />} />
           <Route exact path='/screenshots/:id/edit' render={() => <ScreenshotEditForm />} />
           <Route exact path='/profiles/:id' render={() => <ProfilePage />} />
+          <Route exact path="/profiles/:id/edit/username" render={() => <UsernameForm />} />
+          <Route exact path="/profiles/:id/edit/password" render={() => <UserPasswordForm />} />
+          <Route exact path='/profiles/:id/edit' render={() => <ProfileEditForm />} />
           <Route render={() => <PageNotFound />} />
         </Switch>
       </Container>

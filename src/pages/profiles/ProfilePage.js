@@ -13,7 +13,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useProfileData, useSetProfileData } from "../../contexts/ProfileDataContext";
 import { Button, Image } from "react-bootstrap";
@@ -33,9 +33,9 @@ function ProfilePage() {
     const { pageProfile } = useProfileData();
 
     const [profile] = pageProfile?.results;
-    const is_owner = currentUser?.username === profile?.username
+    const is_owner = currentUser?.username === profile?.author
 
-
+    const history = useHistory();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -66,14 +66,17 @@ function ProfilePage() {
                     <Image className={styles.ProfileImage} roundedCircle src={profile?.profile_image} />
                 </Col>
                 <Col lg={6}>
-                    <h3 className="m-2">{profile?.username}</h3>
+                    <h2 className="m-2">{profile?.author}</h2>
+                    <p>Screen Name: {profile?.screen_name}</p>
                 </Col>
                 <Col className="m-2">
                     {is_owner && (
                         <>
-                            <Button className={btnStyles.Button}>Edit Profile</Button>
-                            <Button variant="warning" className={btnStyles.Button}>Change Username</Button>
-                            <Button variant="danger" className={btnStyles.Button}>Change Password</Button>
+                            <Button className={btnStyles.Button} onClick={() => history.push(`/profiles/${id}/edit`)}>Edit Profile</Button>
+                            <Button variant="warning" className={btnStyles.Button} onClick={() => history.push(`/profiles/${id}/edit/username`)} 
+                                aria-label="edit-username">Change Username</Button>
+                            <Button variant="danger" className={btnStyles.Button} onClick={() => history.push(`/profiles/${id}/edit/password`)}
+                                aria-label="edit-password">Change Password</Button>
                         </>
                     )}
                 </Col>
@@ -84,7 +87,7 @@ function ProfilePage() {
     const mainProfilePosts = (
         <>
             <hr />
-            <p className="text-center">{profile?.username}'s posts</p>
+            <p className="text-center">{profile?.author}'s servers and posts</p>
             <hr />
             <Row>
                 <Col>
