@@ -16,8 +16,8 @@ function Home() {
         const fetchData = async () => {
             try {
                 const [{data: recentServers}, {data: recentScreenshots}] = await Promise.all([
-                    axiosReq.get('/servers/?ordering=-created_date'),
-                    axiosReq.get('/screenshots/?ordering=-created_date'),
+                    axiosReq.get(`/servers/`),
+                    axiosReq.get(`/screenshots/`),
                 ]);
                 setRecentServers(recentServers);
                 setRecentScreenshots(recentScreenshots);
@@ -25,9 +25,16 @@ function Home() {
             } catch(err) {
                 console.log(err);
             }
-        }
-        fetchData();
-    });
+        };
+        setHasLoaded(false);
+        const timer = setTimeout(() => {
+            fetchData();
+        }, 1000);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, []);
 
     const mainTitle = (
         <>
@@ -84,8 +91,16 @@ function Home() {
     return (
         <Row>
             <Col>
-                {mainTitle}
-                {recentActivity}
+                <Container>
+                    {hasLoaded ? (
+                        <>
+                        {mainTitle}
+                        {recentActivity}
+                        </>
+                    ) : (
+                        <Asset spinner />
+                    )}
+                    </Container>
             </Col>
         </Row>
     )
