@@ -9,6 +9,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 import Screenshot from "./Screenshot";
 import InfiniteScroll from "react-infinite-scroll-component";
 import appStyles from "../../App.module.css";
+import styles from "../../css/ScreenshotPage.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import CommentCreateForm from "../comments/CommentCreateForm";
 import Comment from "../comments/Comment";
@@ -68,9 +69,9 @@ function ScreenshotPage() {
                             next={() => fetchMoreData(comments, setComments)}
                         />
                     ) : currentUser ? (
-                        <span>No comments yet!</span>
+                        <span className={styles.NoComments}>No comments yet!</span>
                     ) : (
-                        <span>No comments..... yet!</span>
+                        <span className={styles.NoComments}>No comments..... yet!</span>
                     )}
                 </Container>
             </Col>
