@@ -161,6 +161,11 @@ __App__
 
 ![App](document/testing/app.jpg)
 
+__Manual Testing__
+- Testing of Navbar
+
+![NavbarTest](document/testing/manual_tests.jpg)
+
 ## Fixed Bugs
 During development, I ran into some bugs, errors, and issues which I have successfully debugged and troubleshot.
 
