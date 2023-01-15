@@ -66,8 +66,8 @@ function ProfilePage() {
                     <Image className={styles.ProfileImage} roundedCircle src={profile?.profile_image} />
                 </Col>
                 <Col lg={6}>
-                    <h2 className="m-2">{profile?.author}</h2>
-                    <p>Screen Name: {profile?.screen_name}</p>
+                    <h2 className={`${styles.ProfileText} m-2`}>{profile?.author}</h2>
+                    <p className={styles.ProfileText}>Screen Name: {profile?.screen_name}</p>
                 </Col>
                 <Col className="m-2">
                     {is_owner && (
@@ -87,7 +87,7 @@ function ProfilePage() {
     const mainProfilePosts = (
         <>
             <hr />
-            <p className="text-center">{profile?.author}'s servers and posts</p>
+            <p className= {`${styles.ProfileText} text-center`}>{profile?.author}'s servers and posts</p>
             <hr />
             <Row>
                 <Col>
