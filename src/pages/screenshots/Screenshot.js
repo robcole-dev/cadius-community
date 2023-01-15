@@ -57,7 +57,7 @@ const Screenshot = (props) => {
                 {title && <Card.Title className="text-center">{title}</Card.Title>}
                 {description && <Card.Text>{description}</Card.Text>}
             </Card.Body>
-            {is_author && screenshotPage &&
+            {currentUser && is_author && screenshotPage &&
                 <Card.Footer>
                     <Button className={btnStyles.Button} onClick={handleEdit}>Edit</Button>
                     <Button variant="danger" className={btnStyles.Button} onClick={handleDelete}>Delete</Button>

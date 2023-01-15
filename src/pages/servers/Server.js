@@ -63,7 +63,7 @@ const Server = (props) => {
                 <hr className={styles.hr} />
                 <Card.Text>Server Owner: <Link to={`/profiles/${author_id}`}>{author_image}{author}</Link></Card.Text>
             </Card.Body>
-            {is_author && serverPage && <>
+            {currentUser && is_author && serverPage && <>
                 <Container>
                     <hr className={styles.hr} />
                     <Button className={btnStyles.Button} onClick={handleEdit}>Edit</Button>
