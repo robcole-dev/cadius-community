@@ -11,8 +11,6 @@ import styles from "../../css/ServersPage.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import { Rating } from "react-simple-star-rating";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { fetchMoreData } from "../../utils/utils";
 
 function ServersPage() {
     const [servers, setServers] = useState({ results: [] });
