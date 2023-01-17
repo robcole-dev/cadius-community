@@ -69,14 +69,14 @@ function ScreenshotCreateForm() {
     const textFields = (
         <div className="text-center">
             <Form.Group>
-                <Form.Label>Title</Form.Label>
+                <Form.Label className={styles.Label}>Title</Form.Label>
                 <Form.Control type="text" name="title" value={title} onChange={handleChange} />
             </Form.Group>
             {errors.title?.map((message, idx) => (
                 <Alert key={idx} variant="warning">{message}</Alert>
             ))}
             <Form.Group>
-                <Form.Label>Description</Form.Label>
+                <Form.Label className={styles.Label}>Description</Form.Label>
                 <Form.Control type="text" name="description" value={description} onChange={handleChange} />
             </Form.Group>
             {errors.description?.map((message, idx) => (
