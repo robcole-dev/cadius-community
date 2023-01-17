@@ -25,7 +25,7 @@ function ServerCreateForm() {
         game: "",
         server_name: "",
         server_address: "",
-        banner: "",
+        banner: "https://res.cloudinary.com/dh23xgunw/image/upload/v1662907626/default_server_banner_hfurfy.jpg",
     });
     const { game, server_name, server_address, banner } = serverData;
 
